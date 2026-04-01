@@ -50,7 +50,7 @@ COMMENT ON COLUMN ORBITE.zone_couverture IS 'Zone géographique couverte';
 CREATE TABLE SATELLITE (
     id_satellite VARCHAR2(10) PRIMARY KEY,
     nom_satellite VARCHAR2(50) NOT NULL,
-    date_lancement DATE NOT NULL,
+    date_lancement TIMESTAMPNOT NULL,
     masse NUMBER NOT NULL,
     format_cubesat VARCHAR2(10) NOT NULL,
     statut VARCHAR2(20) NOT NULL,
@@ -89,7 +89,7 @@ COMMENT ON COLUMN INSTRUMENT.resolution IS 'Résolution en mètres — NULL pour
 CREATE TABLE EMBARQUEMENT (
     id_satellite VARCHAR2(10) NOT NULL,
     ref_instrument VARCHAR2(15) NOT NULL,
-    date_integration DATE NOT NULL,
+    date_integration TIMESTAMPNOT NULL,
     etat_fonctionnement VARCHAR2(20) NOT NULL,
     CONSTRAINT PK_EMBARQUEMENT PRIMARY KEY (id_satellite, ref_instrument),
     CONSTRAINT FK_EMB_SATELLITE FOREIGN KEY (id_satellite) REFERENCES SATELLITE(id_satellite),
@@ -139,7 +139,7 @@ COMMENT ON COLUMN STATION_SOL.statut IS 'Statut de la station — pivot RG-F01 (
 CREATE TABLE AFFECTATION_STATION (
     id_centre NUMBER NOT NULL,
     code_station VARCHAR2(15) NOT NULL,
-    date_affectation DATE NOT NULL,
+    date_affectation TIMESTAMPNOT NULL,
     CONSTRAINT PK_AFFECTATION PRIMARY KEY (id_centre, code_station),
     CONSTRAINT FK_AFF_CENTRE FOREIGN KEY (id_centre) REFERENCES CENTRE_CONTROLE(id_centre),
     CONSTRAINT FK_AFF_STATION FOREIGN KEY (code_station) REFERENCES STATION_SOL(code_station)
@@ -155,7 +155,7 @@ CREATE TABLE MISSION (
     nom_mission VARCHAR2(50) NOT NULL,
     objectif VARCHAR2(200) NOT NULL,
     zone_geo_cible VARCHAR2(50) NOT NULL,
-    date_debut DATE NOT NULL,
+    date_debut TIMESTAMPNOT NULL,
     date_fin DATE,
     statut_mission VARCHAR2(20) NOT NULL,
     CONSTRAINT CK_MISSION_STATUT CHECK (statut_mission IN ('Active', 'Terminée', 'Planifiée')),

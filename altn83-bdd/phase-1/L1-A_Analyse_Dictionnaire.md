@@ -24,7 +24,7 @@
 **Attributs :**
 - `id_satellite` : VARCHAR2(10) (PK, NOT NULL) - Identifiant unique du satellite
 - `nom_satellite` : VARCHAR2(50) (NOT NULL) - Nom commercial du satellite
-- `date_lancement` : DATE (NOT NULL) - Date de lancement
+- `date_lancement` : TIMESTAMP(NOT NULL) - Date de lancement
 - `masse` : NUMBER (NOT NULL) - Masse en kg
 - `format_cubesat` : VARCHAR2(10) (NOT NULL) - Format CubeSat (3U, 6U, 12U)
 - `statut` : VARCHAR2(20) (NOT NULL) - Statut opérationnel (Opérationnel, En veille, Désorbité)
@@ -49,7 +49,7 @@
 **Attributs :**
 - `id_satellite` : VARCHAR2(10) (PK, FK → SATELLITE.id_satellite, NOT NULL)
 - `ref_instrument` : VARCHAR2(15) (PK, FK → INSTRUMENT.ref_instrument, NOT NULL)
-- `date_integration` : DATE (NOT NULL) - Date d'intégration de l'instrument
+- `date_integration` : TIMESTAMP(NOT NULL) - Date d'intégration de l'instrument
 - `etat_fonctionnement` : VARCHAR2(20) (NOT NULL) - État de fonctionnement (Nominal, Dégradé, Hors service)
 
 #### 5. CENTRE_CONTROLE
@@ -82,7 +82,7 @@
 **Attributs :**
 - `id_centre` : NUMBER (PK, FK → CENTRE_CONTROLE.id_centre, NOT NULL)
 - `code_station` : VARCHAR2(15) (PK, FK → STATION_SOL.code_station, NOT NULL)
-- `date_affectation` : DATE (NOT NULL) - Date d'affectation de la station au centre
+- `date_affectation` : TIMESTAMP(NOT NULL) - Date d'affectation de la station au centre
 
 #### 8. MISSION
 **Description :** Missions spatiales.
@@ -92,8 +92,8 @@
 - `nom_mission` : VARCHAR2(50) (NOT NULL) - Nom de la mission
 - `objectif` : VARCHAR2(200) (NOT NULL) - Objectif de la mission
 - `zone_geo_cible` : VARCHAR2(50) (NOT NULL) - Zone géographique ciblée
-- `date_debut` : DATE (NOT NULL) - Date de début de la mission
-- `date_fin` : DATE (NULLABLE) - Date de fin (NULL pour missions actives)
+- `date_debut` : TIMESTAMP(NOT NULL) - Date de début de la mission
+- `date_fin` : TIMESTAMP(NULLABLE) - Date de fin (NULL pour missions actives)
 - `statut_mission` : VARCHAR2(20) (NOT NULL) - Statut (Active, Terminée)
 
 #### 9. FENETRE_COM

@@ -56,13 +56,13 @@ Les règles de gestion (RG-*) sont classées selon leur nature d'implémentation
 
 **RG-F02** : Pas de chevauchement temporel des fenêtres de communication
 - **Type** : Procédural
-- **Implémentation** : Trigger BEFORE INSERT/UPDATE sur FENETRE_COM
+- **Implémentation** : Trigger BEFORE INSERT/UPTIMESTAMPsur FENETRE_COM
 - **Code erreur** : ORA-20003
 - **Justification** : Évite les conflits de ressources de communication
 
 **RG-F03** : Correction automatique du volume de données pour fenêtres non réalisées
 - **Type** : Procédural
-- **Implémentation** : Trigger BEFORE INSERT/UPDATE sur FENETRE_COM (correction silencieuse)
+- **Implémentation** : Trigger BEFORE INSERT/UPTIMESTAMPsur FENETRE_COM (correction silencieuse)
 - **Justification** : Maintien de la cohérence des données
 
 **RG-M01** : Interdiction de participation à une mission terminée
@@ -73,7 +73,7 @@ Les règles de gestion (RG-*) sont classées selon leur nature d'implémentation
 
 **RG-S01** : Historique automatique des changements de statut satellite
 - **Type** : Procédural
-- **Implémentation** : Trigger AFTER UPDATE sur statut de SATELLITE
+- **Implémentation** : Trigger AFTER UPTIMESTAMPsur statut de SATELLITE
 - **Justification** : Traçabilité des changements opérationnels
 
 ### Analyse par Entité

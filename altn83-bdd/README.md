@@ -72,4 +72,4 @@ PARTICIPATION   (id_satellite PK FK, id_mission PK FK, role_satellite)
 | `trg_no_chevauchement` | BEFORE INS/UPD FENETRE_COM | Pas de chevauchement temporel | ORA-20003 |
 | `trg_volume_realise` | BEFORE INS/UPD FENETRE_COM | Volume NULL si non Réalisée | *(correction silencieuse)* |
 | `trg_mission_terminee` | BEFORE INSERT PARTICIPATION | Mission Terminée bloquée | ORA-20004 |
-| `trg_historique_statut` | AFTER UPDATE statut SATELLITE | Trace dans HISTORIQUE_STATUT | *(pas d'erreur)* |
+| `trg_historique_statut` | AFTER UPTIMESTAMPstatut SATELLITE | Trace dans HISTORIQUE_STATUT | *(pas d'erreur)* |

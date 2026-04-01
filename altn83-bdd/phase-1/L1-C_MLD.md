@@ -30,7 +30,7 @@ ORBITE (
 SATELLITE (
     id_satellite VARCHAR2(10) PRIMARY KEY,
     nom_satellite VARCHAR2(50) NOT NULL,
-    date_lancement DATE NOT NULL,
+    date_lancement TIMESTAMPNOT NULL,
     masse NUMBER NOT NULL,
     format_cubesat VARCHAR2(10) NOT NULL,
     statut VARCHAR2(20) NOT NULL,
@@ -57,7 +57,7 @@ INSTRUMENT (
 EMBARQUEMENT (
     id_satellite VARCHAR2(10) REFERENCES SATELLITE(id_satellite),
     ref_instrument VARCHAR2(15) REFERENCES INSTRUMENT(ref_instrument),
-    date_integration DATE NOT NULL,
+    date_integration TIMESTAMPNOT NULL,
     etat_fonctionnement VARCHAR2(20) NOT NULL,
     PRIMARY KEY (id_satellite, ref_instrument)
 )
@@ -94,7 +94,7 @@ STATION_SOL (
 AFFECTATION_STATION (
     id_centre NUMBER REFERENCES CENTRE_CONTROLE(id_centre),
     code_station VARCHAR2(15) REFERENCES STATION_SOL(code_station),
-    date_affectation DATE NOT NULL,
+    date_affectation TIMESTAMPNOT NULL,
     PRIMARY KEY (id_centre, code_station)
 )
 ```
@@ -106,7 +106,7 @@ MISSION (
     nom_mission VARCHAR2(50) NOT NULL,
     objectif VARCHAR2(200) NOT NULL,
     zone_geo_cible VARCHAR2(50) NOT NULL,
-    date_debut DATE NOT NULL,
+    date_debut TIMESTAMPNOT NULL,
     date_fin DATE,
     statut_mission VARCHAR2(20) NOT NULL
 )
