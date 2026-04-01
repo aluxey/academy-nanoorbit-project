@@ -1,10 +1,10 @@
-# Livrable L1-A : Analyse du Dictionnaire des Données
+# Livrable L1-A : Analyse du Dictionnaire des Données (CORRIGÉ)
 
 ## Étape 1 : Compréhension + Extraction des Données
 
-### Entités Identifiées
+### Les 10 Relations du Modèle Conceptuel
 
-À partir des fichiers CSV fournis et du dictionnaire de données, voici la liste complète des entités avec leurs attributs, types Oracle estimés et contraintes identifiées.
+À partir du dictionnaire fourni et des fichiers CSV, voici les 10 entités/relations du système NanoOrbit.
 
 #### 1. ORBITE
 **Description :** Définit les caractéristiques des orbites disponibles pour les satellites.
