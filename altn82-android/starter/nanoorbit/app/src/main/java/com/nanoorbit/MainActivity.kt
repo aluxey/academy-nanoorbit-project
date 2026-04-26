@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.nanoorbit.ui.screen.DashboardScreen
+import com.nanoorbit.ui.screen.NanoOrbitApp
 import com.nanoorbit.ui.theme.NanoOrbitTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MaterialTheme {
-                DashboardScreen()
+                NanoOrbitApp()
             }
         }
     }

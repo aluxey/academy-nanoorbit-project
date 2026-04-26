@@ -19,7 +19,9 @@ import com.nanoorbit.viewmodel.NanoOrbitViewModel
 @Composable
 fun DashboardScreen(
     vm : NanoOrbitViewModel =
-        viewModel()
+        viewModel(),
+    onSatelliteClick:
+        (String)->Unit = {}
 ){
 
     val satellites by
@@ -172,7 +174,11 @@ fun DashboardScreen(
 
                     SatelliteCard(
                         satellite = sat,
-                        onClick = {}
+                        onClick = {
+                            onSatelliteClick(
+                                sat.idSatellite
+                            )
+                        }
                     )
 
                 }
