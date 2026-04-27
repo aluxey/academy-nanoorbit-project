@@ -3,7 +3,6 @@ package com.nanoorbit.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 
-import com.nanoorbit.data.DataMode
 import com.nanoorbit.data.NanoOrbitRepository
 import com.nanoorbit.model.Anomalie
 import com.nanoorbit.model.FenetreCom
@@ -19,8 +18,6 @@ class NanoOrbitViewModel(
     private val repository: NanoOrbitRepository =
         NanoOrbitRepository()
 ) : ViewModel() {
-    val dataMode: StateFlow<DataMode> =
-        repository.observeDataMode()
 
     private val _satellites =
         MutableStateFlow<List<Satellite>>(
@@ -156,12 +153,6 @@ class NanoOrbitViewModel(
         loadSatellites()
         loadFenetres()
 
-    }
-
-    fun setDataMode(mode: DataMode) {
-        repository.setDataMode(mode)
-        loadSatellites()
-        loadFenetres()
     }
 
 

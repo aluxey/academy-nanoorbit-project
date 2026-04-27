@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 
-import com.nanoorbit.data.DataMode
 import com.nanoorbit.model.StatutSatellite
 import com.nanoorbit.ui.components.SatelliteCard
 import com.nanoorbit.viewmodel.NanoOrbitViewModel
@@ -46,8 +45,6 @@ fun DashboardScreen(
     val activeStatut by
     vm.selectedStatut
         .collectAsStateWithLifecycle()
-    val dataMode by
-    vm.dataMode.collectAsStateWithLifecycle()
 
 
     Column(
@@ -55,32 +52,6 @@ fun DashboardScreen(
             .fillMaxSize()
             .padding(16.dp)
     ){
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            FilterChip(
-                selected = dataMode == DataMode.OFFLINE,
-                onClick = {
-                    vm.setDataMode(DataMode.OFFLINE)
-                },
-                label = {
-                    Text("Hors ligne")
-                }
-            )
-
-            FilterChip(
-                selected = dataMode == DataMode.ONLINE,
-                onClick = {
-                    vm.setDataMode(DataMode.ONLINE)
-                },
-                label = {
-                    Text("En ligne")
-                }
-            )
-        }
-
-        Spacer(Modifier.height(12.dp))
-
         OutlinedTextField(
             value = query,
             onValueChange = {
