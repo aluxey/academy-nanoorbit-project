@@ -18,11 +18,21 @@ PROMPT ===== Phase 3 =====
 @/workspace/altn83-bdd/phase-3/L3-C_pkg_nanoOrbit_BODY.sql
 @/workspace/altn83-bdd/phase-3/L3-D_Validation_pkg_nanoOrbit.sql
 
+PROMPT ===== Phase 4 =====
+@/workspace/altn83-bdd/phase-4/L4-A_Vues.sql
+@/workspace/altn83-bdd/phase-4/L4-B_CTE_Sous_Requetes.sql
+@/workspace/altn83-bdd/phase-4/L4-C_Analytiques_Merge.sql
+@/workspace/altn83-bdd/phase-4/L4-D_Index_Explain_Plan.sql
+
 PROMPT ===== Final object status =====
 SELECT object_name, object_type, status
 FROM user_objects
 WHERE object_name IN (
     'PKG_NANOORBIT',
+    'V_SATELLITES_OPERATIONNELS',
+    'V_FENETRES_DETAIL',
+    'V_STATS_MISSIONS',
+    'MV_VOLUMES_MENSUELS',
     'TRG_VALIDER_FENETRE',
     'TRG_NO_CHEVAUCHEMENT',
     'TRG_VOLUME_REALISE',
