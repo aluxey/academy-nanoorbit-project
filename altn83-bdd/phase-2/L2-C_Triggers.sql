@@ -82,7 +82,7 @@ COMPOUND TRIGGER
 
     g_fenetres t_fenetres;
 
-    BEFORE EACH ROW IS
+    AFTER EACH ROW IS
         v_index PLS_INTEGER;
     BEGIN
         v_index := g_fenetres.COUNT + 1;
@@ -91,7 +91,7 @@ COMPOUND TRIGGER
         g_fenetres(v_index).duree := :NEW.duree;
         g_fenetres(v_index).id_satellite := :NEW.id_satellite;
         g_fenetres(v_index).code_station := :NEW.code_station;
-    END BEFORE EACH ROW;
+    END AFTER EACH ROW;
 
     AFTER STATEMENT IS
         v_nb_chevauchements NUMBER;
