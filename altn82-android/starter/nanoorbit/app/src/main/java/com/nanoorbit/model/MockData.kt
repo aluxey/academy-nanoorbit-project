@@ -188,4 +188,14 @@ object MockData {
         )
 
     )
+
+    val anomalies = listOf(
+        Anomalie(
+            idAnomalie = 1,
+            idSatellite = "SAT-001",
+            dateSignalement = LocalDateTime.now().minusDays(2),
+            description = "Instabilite de telemetrie detectee.",
+            statut = "OUVERTE"
+        )
+    )
 }

@@ -107,3 +107,14 @@ data class Mission(
     val dateFin: LocalDate? = null,
     val zoneGeoCible: String? = null
 )
+
+/*
+TABLE ANOMALIE
+*/
+data class Anomalie(
+    val idAnomalie: Int,
+    val idSatellite: String,
+    val dateSignalement: LocalDateTime,
+    val description: String,
+    val statut: String = "OUVERTE"
+)
