@@ -20,7 +20,7 @@ class NanoOrbitRepository(
     companion object {
         private fun createApi(): NanoOrbitApi {
             return Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:3001/api/")
+                .baseUrl("http://172.24.208.1:3001/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(NanoOrbitApi::class.java)

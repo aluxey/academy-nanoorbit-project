@@ -139,7 +139,7 @@ class NanoOrbitViewModel(
                     repository.getSatellites()
 
             } catch(e: Exception){
-
+                println(e)
                 _errorMessage.value =
                     "Erreur réseau satellites"
 
