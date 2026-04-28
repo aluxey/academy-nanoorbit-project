@@ -3,7 +3,6 @@ package com.nanoorbit.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 
-import com.nanoorbit.data.DataMode
 import com.nanoorbit.data.NanoOrbitRepository
 import com.nanoorbit.model.Anomalie
 import com.nanoorbit.model.FenetreCom
@@ -19,8 +18,6 @@ class NanoOrbitViewModel(
     private val repository: NanoOrbitRepository =
         NanoOrbitRepository()
 ) : ViewModel() {
-    val dataMode: StateFlow<DataMode> =
-        repository.observeDataMode()
 
     private val _satellites =
         MutableStateFlow<List<Satellite>>(
@@ -78,6 +75,12 @@ class NanoOrbitViewModel(
 
     val anomalies: StateFlow<List<Anomalie>> =
         _anomalies
+
+    private val _isOfflineMode =
+        MutableStateFlow(repository.isOfflineMode())
+
+    val isOfflineMode: StateFlow<Boolean> =
+        _isOfflineMode
 
 
     /*
@@ -138,7 +141,7 @@ class NanoOrbitViewModel(
             } catch(e: Exception){
 
                 _errorMessage.value =
-                    "Erreur réseau"
+                    "Erreur réseau satellites"
 
             } finally {
 
@@ -158,10 +161,10 @@ class NanoOrbitViewModel(
 
     }
 
-    fun setDataMode(mode: DataMode) {
-        repository.setDataMode(mode)
-        loadSatellites()
-        loadFenetres()
+    fun setOfflineMode(enabled: Boolean) {
+        repository.setOfflineMode(enabled)
+        _isOfflineMode.value = enabled
+        refreshSatellites()
     }
 
 
@@ -184,7 +187,11 @@ class NanoOrbitViewModel(
 
     fun loadFenetres() {
         viewModelScope.launch {
-            _fenetres.value = repository.getFenetres()
+            try {
+                _fenetres.value = repository.getFenetres()
+            } catch (_: Exception) {
+                _planningMessage.value = "Erreur reseau (fenetres)."
+            }
         }
     }
 
@@ -195,30 +202,38 @@ class NanoOrbitViewModel(
         codeStation: String
     ) {
         viewModelScope.launch {
-            repository.addFenetre(
-                datetimeDebut = datetimeDebut,
-                duree = duree,
-                idSatellite = idSatellite,
-                codeStation = codeStation
-            )
-            _fenetres.value = repository.getFenetres()
-            _planningMessage.value = "Fenetre ajoutee."
+            try {
+                repository.addFenetre(
+                    datetimeDebut = datetimeDebut,
+                    duree = duree,
+                    idSatellite = idSatellite,
+                    codeStation = codeStation
+                )
+                _fenetres.value = repository.getFenetres()
+                _planningMessage.value = "Fenetre ajoutee."
+            } catch (_: Exception) {
+                _planningMessage.value = "Erreur reseau lors de l'ajout."
+            }
         }
     }
 
     fun markFenetreAsRealisee(idFenetre: Int) {
         viewModelScope.launch {
-            val ok = repository.markFenetreAsRealisee(
-                idFenetre = idFenetre,
-                today = LocalDate.now()
-            )
-            _fenetres.value = repository.getFenetres()
-            _planningMessage.value =
-                if (ok) {
-                    "Fenetre passee en REALISEE."
-                } else {
-                    "Impossible: seule une fenetre planifiee dans le passe peut etre validee REALISEE."
-                }
+            try {
+                val ok = repository.markFenetreAsRealisee(
+                    idFenetre = idFenetre,
+                    today = LocalDate.now()
+                )
+                _fenetres.value = repository.getFenetres()
+                _planningMessage.value =
+                    if (ok) {
+                        "Fenetre passee en REALISEE."
+                    } else {
+                        "Impossible: seule une fenetre planifiee dans le passe peut etre validee REALISEE."
+                    }
+            } catch (_: Exception) {
+                _planningMessage.value = "Erreur reseau lors de la mise a jour."
+            }
         }
     }
 
@@ -226,8 +241,12 @@ class NanoOrbitViewModel(
         satelliteId: String
     ) {
         viewModelScope.launch {
-            _anomalies.value =
-                repository.getAnomaliesForSatellite(satelliteId)
+            try {
+                _anomalies.value =
+                    repository.getAnomaliesForSatellite(satelliteId)
+            } catch (_: Exception) {
+                _errorMessage.value = "Erreur reseau (anomalies)."
+            }
         }
     }
 
@@ -237,12 +256,16 @@ class NanoOrbitViewModel(
     ) {
         if (description.isBlank()) return
         viewModelScope.launch {
-            repository.addAnomalie(
-                satelliteId = satelliteId,
-                description = description
-            )
-            _anomalies.value =
-                repository.getAnomaliesForSatellite(satelliteId)
+            try {
+                repository.addAnomalie(
+                    satelliteId = satelliteId,
+                    description = description
+                )
+                _anomalies.value =
+                    repository.getAnomaliesForSatellite(satelliteId)
+            } catch (_: Exception) {
+                _errorMessage.value = "Erreur reseau lors de l'ajout anomalie."
+            }
         }
     }
 
@@ -251,9 +274,13 @@ class NanoOrbitViewModel(
         anomalyId: Int
     ) {
         viewModelScope.launch {
-            repository.markAnomalieAsTraitee(anomalyId)
-            _anomalies.value =
-                repository.getAnomaliesForSatellite(satelliteId)
+            try {
+                repository.markAnomalieAsTraitee(anomalyId)
+                _anomalies.value =
+                    repository.getAnomaliesForSatellite(satelliteId)
+            } catch (_: Exception) {
+                _errorMessage.value = "Erreur reseau lors de la mise a jour anomalie."
+            }
         }
     }
 

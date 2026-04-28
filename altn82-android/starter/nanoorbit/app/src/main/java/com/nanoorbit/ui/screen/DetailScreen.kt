@@ -39,7 +39,6 @@ fun DetailScreen(
     onBack:()->Unit,
     vm: NanoOrbitViewModel = viewModel()
 ){
-
     val sat =
         MockData.satellites.find{
             it.idSatellite == satelliteId

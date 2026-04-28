@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 
-import com.nanoorbit.data.DataMode
 import com.nanoorbit.model.StatutSatellite
 import com.nanoorbit.ui.components.SatelliteCard
 import com.nanoorbit.viewmodel.NanoOrbitViewModel
@@ -46,8 +45,8 @@ fun DashboardScreen(
     val activeStatut by
     vm.selectedStatut
         .collectAsStateWithLifecycle()
-    val dataMode by
-    vm.dataMode.collectAsStateWithLifecycle()
+    val isOfflineMode by
+    vm.isOfflineMode.collectAsStateWithLifecycle()
 
 
     Column(
@@ -56,27 +55,34 @@ fun DashboardScreen(
             .padding(16.dp)
     ){
         Row(
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            FilterChip(
-                selected = dataMode == DataMode.OFFLINE,
-                onClick = {
-                    vm.setDataMode(DataMode.OFFLINE)
-                },
-                label = {
-                    Text("Hors ligne")
-                }
-            )
+            Button(
+                onClick = { vm.setOfflineMode(true) },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (isOfflineMode) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.secondary
+                    }
+                )
+            ) {
+                Text("Offline")
+            }
 
-            FilterChip(
-                selected = dataMode == DataMode.ONLINE,
-                onClick = {
-                    vm.setDataMode(DataMode.ONLINE)
-                },
-                label = {
-                    Text("En ligne")
-                }
-            )
+            Button(
+                onClick = { vm.setOfflineMode(false) },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (!isOfflineMode) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.secondary
+                    }
+                )
+            ) {
+                Text("Online")
+            }
         }
 
         Spacer(Modifier.height(12.dp))
