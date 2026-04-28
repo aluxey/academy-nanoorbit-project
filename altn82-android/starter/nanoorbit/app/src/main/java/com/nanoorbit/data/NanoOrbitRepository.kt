@@ -152,6 +152,7 @@ class NanoOrbitRepository(
         if (!response.isSuccessful) {
             throw IllegalStateException("Echec addAnomalie: HTTP ${response.code()}")
         }
+
         return Anomalie(
             idAnomalie = -1,
             idSatellite = satelliteId,
@@ -230,5 +231,4 @@ class NanoOrbitRepository(
         return runCatching { OffsetDateTime.parse(raw).toLocalDateTime() }
             .getOrElse { LocalDateTime.parse(raw.replace(" ", "T")) }
     }
-
 }
